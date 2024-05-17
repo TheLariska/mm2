@@ -189,24 +189,27 @@ Tab:AddButton({
 	Name = "tp to gun",
 	Callback = function()
         local Players = game:GetService("Players")
-        local player = Players.LocalPlayer
-        local character = player.Character
-        
-        if character then
-            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-            if humanoidRootPart then
-                local gunDrop = workspace:FindFirstChild("GunDrop")
-                if gunDrop then
-                    humanoidRootPart.CFrame = gunDrop.CFrame
-                else
-                    print("Объект 'GunDrop' не найден")
-                end
-            else
-                print("Персонаж игрока не имеет 'HumanoidRootPart'")
-            end
+local player = Players.LocalPlayer
+local character = player.Character
+
+if character then
+    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    if humanoidRootPart then
+        local gunDrop = workspace:FindFirstChild("GunDrop")
+        if gunDrop then
+            local originalCFrame = humanoidRootPart.CFrame
+            humanoidRootPart.CFrame = gunDrop.CFrame
+            wait(0.5)
+            humanoidRootPart.CFrame = originalCFrame
         else
-            print("Персонаж игрока не найден")
+            print("Объект 'GunDrop' не найден")
         end
+    else
+        print("Персонаж игрока не имеет 'HumanoidRootPart'")
+    end
+else
+    print("Персонаж игрока не найден")
+end
         
   	end    
 })
