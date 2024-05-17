@@ -1,0 +1,134 @@
+while true do
+    local Animate = game.Players.LocalPlayer.Character.Animate
+    Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
+    game.Players.LocalPlayer.Character.Humanoid.Jump = false
+    wait(1)
+end
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Murder Mustery 2", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Main function"
+})
+
+OrionLib:MakeNotification({
+	Name = "Script By Meetly!",
+	Content = "Beta Version",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+Tab:AddButton({
+	Name = "InfJump",
+	Callback = function()
+        game:GetService("UserInputService").JumpRequest:connect(function()
+            game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")       
+        end)
+  	end    
+})
+
+Tab:AddSlider({
+	Name = "Speed",
+	Min = 16,
+	Max = 25,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "bananas",
+	Callback = function(speed)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+	end    
+})
+
+Tab:AddSlider({
+	Name = "Jump-Power",
+	Min = 50,
+	Max = 100,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "bananas",
+	Callback = function(jump)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+	end    
+})
+
+
+Tab:AddButton({
+	Name = "tp to gun",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+        local character = player.Character
+        
+        if character then
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                local gunDrop = workspace:FindFirstChild("GunDrop")
+                if gunDrop then
+                    humanoidRootPart.CFrame = gunDrop.CFrame
+                else
+                    print("Объект 'GunDrop' не найден")
+                end
+            else
+                print("Персонаж игрока не имеет 'HumanoidRootPart'")
+            end
+        else
+            print("Персонаж игрока не найден")
+        end
+        
+  	end    
+})
+
+----------------------------------------------VISUAL
+
+
+
+local Tab = Window:MakeTab({
+	Name = "Visual",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Visual"
+})
+
+Tab:AddButton({
+	Name = "ESP",
+	Callback = function()
+        
+
+local function getRoleColor(plr)
+    if (plr.Backpack:FindFirstChild("Knife") or plr.Character:FindFirstChild("Knife")) then
+        return Color3.new(255, 0, 0)
+    elseif (plr.Backpack:FindFirstChild("Gun") or plr.Character:FindFirstChild("Gun")) then
+        return Color3.new(0, 0, 255)
+    else
+        return Color3.new(0, 255, 0)
+    end
+ end
+  
+ while true do
+    for _, v in pairs(game.Players:GetChildren()) do
+        if v ~= game.Players.LocalPlayer and v.Character and not v.Character:FindFirstChild("Highlight") then
+            Instance.new("Highlight", v.Character)
+            v.Character.Highlight.FillTransparency = 0.5
+            v.Character.Highlight.OutlineTransparency = 0.5
+            v.Character.Highlight.FillColor = getRoleColor(v)
+        elseif (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Highlight")) then
+            v.Character.Highlight.FillColor = getRoleColor(v)
+        end
+    end
+    wait(0.1)
+ end
+  	end    
+})
